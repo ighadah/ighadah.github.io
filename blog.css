@@ -241,7 +241,8 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff;
 }
 .btn-linkedin {
-    background: #0177b5;
+    /*background: #0177b5;*/
+    background: #000000;
     color: #ffffff;
 }
 .btn-instagram {
@@ -268,7 +269,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-linkedin:hover, .btn-linkedin:focus {
-    background: #015682;
+    /*background: #015682;*/
+    background: #4c5265;
     color: #ffffff;
 }
 
