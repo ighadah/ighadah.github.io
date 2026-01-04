@@ -107,6 +107,20 @@
       </div>
     </div>
   </header>
+  
+  
+<!-- Global search (hidden by default) -->
+<div class="row mb-4" id="globalSearchBox" style="display: none;">
+  <div class="col-12">
+    <input id="globalSearchInput"
+           class="form-control"
+           type="search"
+           placeholder="Search the website…"
+           aria-label="Search website">
+    <div id="searchHint" class="small text-muted mt-2"></div>
+  </div>
+</div>
+
 
   <div class="nav-scroller py-1 mb-2">
     <nav class="nav d-flex justify-content-between">
@@ -131,6 +145,10 @@
 </div>
     
     <main class="container">
+    
+  
+
+
   <!--<div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
     <div class="col-md-6 px-0">
       <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
@@ -178,10 +196,17 @@
         Coming soon
       </h3>-->
 
-<article class="blog-post">
+<!--<article class="blog-post">-->
+<article class="blog-post" data-tags="robotics, grc, students, python, riyadh">
 <h2 class="blog-post-title mb-1">A Proud Moment: Supervising My Students at the Global Robotics Challenge 🎉</h2>
 <p class="blog-post-meta">January 2, 2026 by <a href="ighadah.github.io">Ghadah Alghamdi</a></p>
-
+<div class="post-tags mb-3">
+  <span class="badge rounded-pill text-bg-secondary me-1">robotics</span>
+  <span class="badge rounded-pill text-bg-secondary me-1">grc</span>
+  <span class="badge rounded-pill text-bg-secondary me-1">students</span>
+  <span class="badge rounded-pill text-bg-secondary me-1">python</span>
+  <span class="badge rounded-pill text-bg-secondary me-1">riyadh</span>
+</div>
 <p>From December 7 to December 10, I had the amazing opportunity to supervise my Computer Science junior students during their participation in the Global Robotics Challenge (GRC) in Riyadh. It was an unforgettable experience that combined learning, teamwork, excitement, and a lot of proud moments.</p>
 
 <p>We spent 4 days and 3 nights in Riyadh, and the competition was hosted at 
@@ -235,11 +260,11 @@ I am extremely proud of my students and grateful to have been part of their jour
 </p>
 
  <img
-      src="blog-images/GRC-2.jpeg"
+      src="Blog-images/GRC-2.jpeg"
       class="w-100 shadow-1-strong rounded mb-4"
     />
      <img
-      src="blog-images/GRC-3.jpeg"
+      src="Blog-images/GRC-3.jpeg"
       class="w-100 shadow-1-strong rounded mb-4"
     />
     
@@ -417,5 +442,71 @@ I am extremely proud of my students and grateful to have been part of their jour
     <!--<a href="#">Back to top</a>-->
 </footer>
     
+    
+  <script>
+  // -------------------------------
+  // Global Website Search (Toggle)
+  // -------------------------------
+
+  const searchIcon = document.querySelector('a[aria-label="Search"]');
+  const searchBox = document.getElementById('globalSearchBox');
+  const searchInput = document.getElementById('globalSearchInput');
+  const hint = document.getElementById('searchHint');
+
+  // Elements we want to search through
+  const searchableElements = Array.from(
+    document.querySelectorAll('main *')
+  ).filter(el =>
+    el.children.length === 0 && el.textContent.trim().length > 0
+  );
+
+  // Toggle search box on icon click
+  if (searchIcon && searchBox) {
+    searchIcon.addEventListener('click', function (e) {
+      e.preventDefault();
+      const visible = searchBox.style.display === 'block';
+      searchBox.style.display = visible ? 'none' : 'block';
+
+      if (!visible) {
+        searchBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        searchInput.focus();
+      } else {
+        clearHighlights();
+      }
+    });
+  }
+
+  // Search logic
+  searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    clearHighlights();
+
+    if (!query) {
+      hint.textContent = '';
+      return;
+    }
+
+    let matches = 0;
+
+    searchableElements.forEach(el => {
+      if (el.textContent.toLowerCase().includes(query)) {
+        el.style.backgroundColor = 'yellow';
+        matches++;
+      }
+    });
+
+    hint.textContent = matches
+      ? `${matches} match(es) found`
+      : 'No matches found';
+  });
+
+  function clearHighlights() {
+    searchableElements.forEach(el => {
+      el.style.backgroundColor = '';
+    });
+  }
+</script>
+
+
     
 </html>
